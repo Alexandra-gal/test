@@ -4,14 +4,14 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 62.5%;
   width: 100vw;
 }
 
 h2, h3 {
- text-transform: uppercase;
- font-weight: 700;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 .header {
@@ -21,65 +21,33 @@ h2, h3 {
   margin: 0;
 }
 
-@function strip-unit($number) {
-  @if type-of($number)=='number'and not unitless($number) {
-    @return $number / ($number * 0 + 1);
-  }
-
-  @return $number;
-}
-
-@function calcFluidFontSize($f-min, $f-max, $w-min, $w-max, $units: px) {
-  $f-min: strip-unit($f-min);
-  $f-max: strip-unit($f-max);
-  $w-min: strip-unit($w-min);
-  $w-max: strip-unit($w-max);
-  $k: ($f-max - $f-min)/($w-max - $w-min);
-  $b: $f-min - $k * $w-min;
-  $b: $b + $units;
-  @return calc(#{$k} * 100vw + #{$b});
-}
-
-@mixin fluidFontSize($f-min, $f-max, $w-min, $w-max, $fallback: false) {
-  font-size: $f-min;
-
-  @media (min-width: $w-min) {
-    @if ($fallback) {
-      font-size: $fallback;
-    }
-
-    font-size: calcFluidFontSize($f-min, $f-max, $w-min, $w-max, px);
-  }
-
-  @media (min-width: $w-max) {
-    font-size: $f-max;
-  }
-}
-
-@mixin container {
+.header__container {
   max-width: 1170px;
   margin: auto auto;
   display: flex;
   text-align: center;
-
-  @media (max-width: 1170px) {
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 1, 625rem;
+}
+@media (max-width: 1170px) {
+  .header__container {
     padding-left: 20px;
     padding-right: 20px;
   }
 }
-
-@mixin button {
-  color: #0b49e7;
-  background-color: white;
+@media (min-width: 320px) {
+  .header__container {
+    font-size: 14px;
+    font-size: calc(0.0025 * 100vw + 9.2px);
+  }
 }
-
-.header__container {
-  @include container;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 600;
-  @include fluidFontSize(10px, 14px, 320px, 1920px, 14px);
-  line-height: 1, 625rem;
+@media (min-width: 1920px) {
+  .header__container {
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 870px) {
@@ -91,7 +59,6 @@ h2, h3 {
     display: none;
   }
 }
-
 .nav__list {
   display: flex;
   flex-wrap: nowrap;
@@ -117,14 +84,17 @@ h2, h3 {
 
 .header__acc {
   text-decoration: none;
-  @include button;
+  color: #0b49e7;
+  background-color: white;
   border-radius: 10px;
   padding: 5px 10px;
   letter-spacing: -0.03em;
 }
+
 .header__acc:hover {
   background-color: aqua;
 }
+
 .caption {
   background-image: url(../background.jpg);
   background-size: cover;
@@ -154,30 +124,61 @@ h2, h3 {
     position: absolute;
   }
 }
-
 .caption__container {
-  @include container;
+  max-width: 1170px;
+  margin: auto auto;
+  display: flex;
+  text-align: center;
   flex-direction: column;
   justify-content: center;
   padding: 9vw 0 20px;
 }
+@media (max-width: 1170px) {
+  .caption__container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
 
 .caption__tittle {
   color: white;
-  @include fluidFontSize(25px, 40px, 320px, 1920px, 40px);
+  font-size: 25px;
   font-weight: 600;
   margin: 0;
 }
+@media (min-width: 320px) {
+  .caption__tittle {
+    font-size: 40px;
+    font-size: calc(0.009375 * 100vw + 22px);
+  }
+}
+@media (min-width: 1920px) {
+  .caption__tittle {
+    font-size: 40px;
+  }
+}
 
 .caption__text {
-  font-family: 'Nunito', sans-serif;
-  @include fluidFontSize(10px, 14px, 320px, 1920px, 14px);
+  font-family: "Nunito", sans-serif;
+  font-size: 10px;
   color: white;
   margin: 25px;
 }
+@media (min-width: 320px) {
+  .caption__text {
+    font-size: 14px;
+    font-size: calc(0.0025 * 100vw + 9.2px);
+  }
+}
+@media (min-width: 1920px) {
+  .caption__text {
+    font-size: 14px;
+  }
+}
 
 .caption__button {
-  @include button;
+  color: #0b49e7;
+  background-color: white;
   padding: 15px 50px;
   border-radius: 30px;
   margin: 20px auto;
@@ -192,7 +193,18 @@ h2, h3 {
   text-transform: uppercase;
   color: #0b49e7;
   font-weight: 600;
-  @include fluidFontSize(10px, 14px, 320px, 1920px, 14px);
+  font-size: 10px;
+}
+@media (min-width: 320px) {
+  .caption__button a {
+    font-size: 14px;
+    font-size: calc(0.0025 * 100vw + 9.2px);
+  }
+}
+@media (min-width: 1920px) {
+  .caption__button a {
+    font-size: 14px;
+  }
 }
 
 .caption__card {
@@ -206,8 +218,17 @@ h2, h3 {
 }
 
 .getting__container {
-  @include container;
+  max-width: 1170px;
+  margin: auto auto;
+  display: flex;
+  text-align: center;
   flex-direction: column;
+}
+@media (max-width: 1170px) {
+  .getting__container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 .getting__steps {
@@ -217,56 +238,73 @@ h2, h3 {
 
 @media (max-width: 700px) {
   .getting__steps {
-    
     flex-direction: column;
   }
 }
-
 .getting__step {
   border: 1px solid #dbdada;
   margin: 15px;
-  background-color:  white;
+  background-color: white;
   padding: 48px 40px;
   display: flex;
   align-items: center;
   flex-direction: column;
-
 }
-@mixin step {
+
+.getting__step-chart {
   width: 100px;
   height: 100px;
-  
-}
-.getting__step-chart {
-  @include step;
   background: url(../src/img/chart.png) no-repeat;
   background-size: contain;
 }
 
 .getting__step-hand {
-  @include step;
+  width: 100px;
+  height: 100px;
   background: url(../src/img/hand.png) no-repeat;
   background-size: contain;
 }
 
 .getting__step-card {
-  @include step;
+  width: 100px;
+  height: 100px;
   background: url(../src/img/card.png) no-repeat;
   background-size: contain;
 }
 
 .getting__text-tittle {
-  @include fluidFontSize(20px, 30px, 320px, 1920px, 30px);
+  font-size: 20px;
   color: #333333;
   margin: 10px 0 100px;
+}
+@media (min-width: 320px) {
+  .getting__text-tittle {
+    font-size: 30px;
+    font-size: calc(0.00625 * 100vw + 18px);
+  }
+}
+@media (min-width: 1920px) {
+  .getting__text-tittle {
+    font-size: 30px;
+  }
 }
 
 .getting__text-text {
   color: #808080;
-  @include fluidFontSize(16px, 24px, 320px, 1920px, 24px);
+  font-size: 16px;
   text-transform: uppercase;
   margin: 0;
-
+}
+@media (min-width: 320px) {
+  .getting__text-text {
+    font-size: 24px;
+    font-size: calc(0.005 * 100vw + 14.4px);
+  }
+}
+@media (min-width: 1920px) {
+  .getting__text-text {
+    font-size: 24px;
+  }
 }
 
 @media (min-width: 1025px) {
@@ -277,29 +315,58 @@ h2, h3 {
     -webkit-transform: scale(1.2);
     -ms-transform: scale(1.2);
     transform: scale(1.2);
-    -webkit-transition: all 1s ease;;
-  -moz-transition: all 1s ease;;
-  -o-transition: all 1s ease;;
-  transition: all 1s ease;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+  }
+}
+.getting__step-tittle {
+  font-size: 15px;
+}
+@media (min-width: 320px) {
+  .getting__step-tittle {
+    font-size: 20px;
+    font-size: calc(0.003125 * 100vw + 14px);
+  }
+}
+@media (min-width: 1920px) {
+  .getting__step-tittle {
+    font-size: 20px;
   }
 }
 
-.getting__step-tittle {
-  @include fluidFontSize(15px, 20px, 320px, 1920px, 20px);
-  
-}
-
 .getting__step-text {
-  font-family: 'Raleway', sans-serif;
-  @include fluidFontSize(10px, 14px, 320px, 1920px, 14px);
+  font-family: "Raleway", sans-serif;
+  font-size: 10px;
   color: #808080;
+}
+@media (min-width: 320px) {
+  .getting__step-text {
+    font-size: 14px;
+    font-size: calc(0.0025 * 100vw + 9.2px);
+  }
+}
+@media (min-width: 1920px) {
+  .getting__step-text {
+    font-size: 14px;
+  }
 }
 
 .service__container {
-  @include container;
+  max-width: 1170px;
+  margin: auto auto;
+  display: flex;
+  text-align: center;
   padding: 150px 0 130px;
   flex-direction: column;
   align-items: flex-start;
+}
+@media (max-width: 1170px) {
+  .service__container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 .service__text {
@@ -309,16 +376,38 @@ h2, h3 {
 }
 
 .service__text-tittle {
-  @include fluidFontSize(20px, 30px, 320px, 1920px, 30px);
+  font-size: 20px;
   color: #333333;
   margin: 5px 0 60px;
+}
+@media (min-width: 320px) {
+  .service__text-tittle {
+    font-size: 30px;
+    font-size: calc(0.00625 * 100vw + 18px);
+  }
+}
+@media (min-width: 1920px) {
+  .service__text-tittle {
+    font-size: 30px;
+  }
 }
 
 .service__text-text {
   color: #808080;
-  @include fluidFontSize(16px, 24px, 320px, 1920px, 24px);
+  font-size: 16px;
   text-transform: uppercase;
   margin: 0;
+}
+@media (min-width: 320px) {
+  .service__text-text {
+    font-size: 24px;
+    font-size: calc(0.005 * 100vw + 14.4px);
+  }
+}
+@media (min-width: 1920px) {
+  .service__text-text {
+    font-size: 24px;
+  }
 }
 
 .counter {
@@ -329,24 +418,29 @@ h2, h3 {
 }
 
 .counter__container {
-  @include container;
+  max-width: 1170px;
+  margin: auto auto;
+  display: flex;
+  text-align: center;
   color: white;
   justify-content: space-between;
   padding: 170px 0;
+}
+@media (max-width: 1170px) {
+  .counter__container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 @media (max-width: 1240px) {
   .counter__container {
     flex-direction: column;
-    
   }
-
 }
-
 .counter__text {
   display: flex;
   flex-direction: column;
-  
 }
 
 .counter__text-aw {
@@ -363,7 +457,6 @@ h2, h3 {
 .counter__text-tx {
   font-size: 1.5rem;
   margin: 0;
-  
 }
 
 .feedback {
@@ -371,18 +464,38 @@ h2, h3 {
 }
 
 .feedback__container {
-  @include container;
+  max-width: 1170px;
+  margin: auto auto;
+  display: flex;
+  text-align: center;
   padding: 100px 0 120px;
   flex-direction: column;
- align-items: flex-start;
+  align-items: flex-start;
+}
+@media (max-width: 1170px) {
+  .feedback__container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 .feedback__container h3 {
   text-transform: none;
-  @include fluidFontSize(20px, 30px, 320px, 1920px, 30px); 
+  font-size: 20px;
   font-weight: 600;
   text-align: start;
-  margin-bottom: 50px ;
+  margin-bottom: 50px;
+}
+@media (min-width: 320px) {
+  .feedback__container h3 {
+    font-size: 30px;
+    font-size: calc(0.00625 * 100vw + 18px);
+  }
+}
+@media (min-width: 1920px) {
+  .feedback__container h3 {
+    font-size: 30px;
+  }
 }
 
 .feedback__form {
@@ -402,6 +515,7 @@ h2, h3 {
 .feedback__form-col:first-child {
   margin-right: 60px;
 }
+
 form {
   width: 100%;
 }
@@ -435,9 +549,20 @@ form {
 }
 
 .footer__container {
-  @include container;
+  max-width: 1170px;
+  margin: auto auto;
+  display: flex;
+  text-align: center;
   color: white;
   font-size: 0.875rem;
   justify-content: center;
   padding: 40px;
 }
+@media (max-width: 1170px) {
+  .footer__container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
